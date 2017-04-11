@@ -42,11 +42,10 @@ namespace DataAccessLayer
         {
             using (var db = new EmployeesEntities())
             {
-                List<Shared.Entities.Employee> lEmp = new List<Shared.Entities.Employee>();
-                return db.Employees.ToList();
-
-                //return (from Employee in db.Employees select Employee).ToList();
+                //List<Shared.Entities.Employee> lEmp = new List<Shared.Entities.Employee>();
                 //return db.Employees.ToList();
+
+                return (from Employee in db.Employees select Employee).ToList();
             }
         }
 
