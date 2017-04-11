@@ -33,18 +33,28 @@ namespace PresentationLayerWinform
             List<Employee> lisEmpleados = iBL.GetAllEmployees();
 
             lisEmpleados.ForEach(delegate (Employee emp) {
-                var sTipo = "";
+                string sTipo = "";
+                string sHora = "";
+                double dPaga = 0;
 
                 if (emp.GetType() == typeof(PartTimeEmployee))
                 {
                     sTipo = "Part time";
+                    sHora = " / Hora";
+                    dPaga = Convert.ToDouble(((PartTimeEmployee)emp).HourlyRate);
                 }
                 else
                 {
                     sTipo = "Full time";
+                    dPaga = ((FullTimeEmployee)emp).Salary;
                 }
-                gridEmpleados.Rows.Add(emp.Name, "", sTipo);
+                gridEmpleados.Rows.Add(emp.Name, emp.StartDate, sTipo, dPaga + sHora);
             });
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
