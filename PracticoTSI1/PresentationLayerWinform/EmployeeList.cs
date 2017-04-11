@@ -17,14 +17,14 @@ namespace PresentationLayerWinform
     {
         private IBLEmployees iBL;
         private IDALEmployees iDAE;
-        //private IDALEmployees iDAM;
+        private IDALEmployees iDAM;
 
         public EmployeeList()
         {
             InitializeComponent();
 
             iDAE = new DALEmployeesEF();
-            //iDAM = new DALEmployeesMongo();
+            iDAM = new DALEmployeesMongo();
             iBL = new BLEmployees(iDAE);
         }
 
