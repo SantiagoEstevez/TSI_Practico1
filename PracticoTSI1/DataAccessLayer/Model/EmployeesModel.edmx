@@ -57,12 +57,14 @@
             </EntityTypeMapping>
             <EntityTypeMapping TypeName="IsTypeOf(EmployeesModel.FullTimeEmployee)">
               <MappingFragment StoreEntitySet="EmployeesTPH">
+                <ScalarProperty Name="Salary" ColumnName="SALARY" />
                 <ScalarProperty Name="Id" ColumnName="EMP_ID" />
                 <Condition ColumnName="TYPE_EMP" Value="1" />
               </MappingFragment>
             </EntityTypeMapping>
             <EntityTypeMapping TypeName="IsTypeOf(EmployeesModel.PartTimeEmployee)">
               <MappingFragment StoreEntitySet="EmployeesTPH">
+                <ScalarProperty Name="HourlyRate" ColumnName="RATE" />
                 <ScalarProperty Name="Id" ColumnName="EMP_ID" />
                 <Condition ColumnName="TYPE_EMP" Value="0" />
               </MappingFragment>
