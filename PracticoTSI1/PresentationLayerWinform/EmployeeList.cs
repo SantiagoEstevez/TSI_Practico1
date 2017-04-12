@@ -30,8 +30,9 @@ namespace PresentationLayerWinform
 
         private void EmployeeList_Load(object sender, EventArgs e)
         {
+            this.CenterToScreen();
+            
             List<Employee> lisEmpleados = iBL.GetAllEmployees();
-
             lisEmpleados.ForEach(delegate (Employee emp) {
                 string sTipo = "";
                 string sHora = "";
@@ -55,6 +56,12 @@ namespace PresentationLayerWinform
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            EmployeeAddEdit frmAdd = new EmployeeAddEdit();
+            frmAdd.Show();
         }
     }
 }
