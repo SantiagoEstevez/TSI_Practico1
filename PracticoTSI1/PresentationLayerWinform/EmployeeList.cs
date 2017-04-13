@@ -31,9 +31,64 @@ namespace PresentationLayerWinform
         private void EmployeeList_Load(object sender, EventArgs e)
         {
             this.CenterToScreen();
-            
+            this.CargarEmpleados();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            EmployeeAddEdit frmAdd = new EmployeeAddEdit();
+            frmAdd.ShowDialog();
+            this.CargarEmpleados();
+        }
+
+        private void CargarEmpleados()
+        {
+            DataTable dtEmpleado = new DataTable();
+            DataColumn col;
+            DataRow row;
+
+            //Nombre
+            col = new DataColumn();
+            col.DataType = System.Type.GetType("System.String");
+            col.ColumnName = "Nombre";
+            col.Caption = "Nombre";
+            col.ReadOnly = true;
+            dtEmpleado.Columns.Add(col);
+
+            //Fecha contratado
+            col = new DataColumn();
+            col.DataType = System.Type.GetType("System.String");
+            col.ColumnName = "Contratado";
+            col.Caption = "Contratado";
+            col.ReadOnly = true;
+            dtEmpleado.Columns.Add(col);
+
+            //Tipo empleado
+            col = new DataColumn();
+            col.DataType = System.Type.GetType("System.String");
+            col.ColumnName = "TipoEmpleado";
+            col.Caption = "Tipo empleado";
+            col.ReadOnly = true;
+            dtEmpleado.Columns.Add(col);
+
+            //Salario
+            col = new DataColumn();
+            col.DataType = System.Type.GetType("System.String");
+            col.ColumnName = "Salario";
+            col.Caption = "Salario";
+            col.ReadOnly = true;
+            dtEmpleado.Columns.Add(col);
+
+            //Cargo filas
             List<Employee> lisEmpleados = iBL.GetAllEmployees();
-            lisEmpleados.ForEach(delegate (Employee emp) {
+            lisEmpleados.ForEach(delegate (Employee emp)
+            {
+                row = dtEmpleado.NewRow();
                 string sTipo = "";
                 string sHora = "";
                 double dPaga = 0;
@@ -49,19 +104,18 @@ namespace PresentationLayerWinform
                     sTipo = "Full time";
                     dPaga = ((FullTimeEmployee)emp).Salary;
                 }
-                gridEmpleados.Rows.Add(emp.Name, emp.StartDate, sTipo, dPaga + sHora);
+
+                row["Nombre"] = emp.Name;
+                row["Contratado"] = emp.StartDate.ToString("d");
+                row["TipoEmpleado"] = sTipo;
+                row["Salario"] = dPaga + sHora;
+                dtEmpleado.Rows.Add(row);
             });
-        }
 
-        private void btnSalir_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void btnNuevo_Click(object sender, EventArgs e)
-        {
-            EmployeeAddEdit frmAdd = new EmployeeAddEdit();
-            frmAdd.Show();
+            //Asigno data table a la grilla y adapto el tamaño de las columnas.
+            gridEmpleados.DataSource = dtEmpleado;
+            gridEmpleados.Columns[0].Width = 170;
+            gridEmpleados.Columns[1].Width = 110;
         }
     }
 }

@@ -57,7 +57,6 @@ namespace PresentationLayerWinform
                     iDAE.AddEmployee(oEmpleado);
                 }
 
-                MessageBox.Show("Empleado agregado con exito.", "ALTA EMPLEADO", MessageBoxButtons.OK);
                 this.Close();
             }
             catch
@@ -66,12 +65,12 @@ namespace PresentationLayerWinform
             }
         }
 
-        private void chkPart_CheckedChanged(object sender, EventArgs e)
+        private void chkPart_Click(object sender, EventArgs e)
         {
             this.chkFull.Checked = false;
         }
 
-        private void chkFull_CheckedChanged(object sender, EventArgs e)
+        private void chkFull_Click(object sender, EventArgs e)
         {
             this.chkPart.Checked = false;
         }

@@ -70,7 +70,7 @@
             this.chkPart.TabIndex = 17;
             this.chkPart.Text = "Part time";
             this.chkPart.UseVisualStyleBackColor = true;
-            this.chkPart.CheckedChanged += new System.EventHandler(this.chkPart_CheckedChanged);
+            this.chkPart.Click += new System.EventHandler(this.chkPart_Click);
             // 
             // chkFull
             // 
@@ -84,7 +84,7 @@
             this.chkFull.TabIndex = 16;
             this.chkFull.Text = "Full time";
             this.chkFull.UseVisualStyleBackColor = true;
-            this.chkFull.CheckedChanged += new System.EventHandler(this.chkFull_CheckedChanged);
+            this.chkFull.Click += new System.EventHandler(this.chkFull_Click);
             // 
             // lblTipo
             // 
