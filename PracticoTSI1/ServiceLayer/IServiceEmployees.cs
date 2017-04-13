@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer
 {
-    [ServiceContract(
+    [ServiceContract(Namespace = "http://Microsoft.ServiceModel.Samples")]
+    /*[ServiceContract(
         Namespace = "http://microsoft.wcf.documentation",
         Name = "SampleService",
         ProtectionLevel = ProtectionLevel.EncryptAndSign
-    )]
+    )]*/
 
     public interface IServiceEmployees
     {

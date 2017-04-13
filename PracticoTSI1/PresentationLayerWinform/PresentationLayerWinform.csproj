@@ -67,6 +67,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\ServiceEmployees\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="EmployeeAddEdit.resx">
       <DependentUpon>EmployeeAddEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -92,6 +97,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\ServiceEmployees\item.wsdl" />
+    <None Include="Service References\ServiceEmployees\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceEmployees\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceEmployees\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceEmployees\PresentationLayerWinform.ServiceEmployees.Employee.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceEmployees\ServiceEmployees.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -100,18 +119,22 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
-      <Project>{A07AA8DF-3A92-4CC5-B111-5DEA0447C2A3}</Project>
-      <Name>BusinessLogicLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CrossCutting\Shared.csproj">
-      <Project>{8B1E409E-8EB8-4171-8D99-5DB230DA4889}</Project>
-      <Name>Shared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
-      <Project>{135E79F3-5B60-4253-8CA1-53DFE3A6024B}</Project>
-      <Name>DataAccessLayer</Name>
-    </ProjectReference>
+    <WCFMetadataStorage Include="Service References\ServiceEmployees\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceEmployees\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceEmployees\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceEmployees\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceEmployees\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
