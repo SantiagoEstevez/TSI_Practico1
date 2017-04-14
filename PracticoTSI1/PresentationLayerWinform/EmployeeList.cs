@@ -2,18 +2,12 @@
 //using DataAccessLayer;
 //using Shared.Entities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 //namespace PresentationLayerWinform
 //{
-      //Pata hacer funcionar esto se requeiere agregar las referencias a shared, capa de logica de negocio y capa de datos.
+//Pata hacer funcionar esto se requeiere agregar las referencias a shared, capa de logica de negocio y capa de datos.
 //    public partial class EmployeeList : Form
 //    {
 
@@ -135,7 +129,6 @@ namespace PresentationLayerWinform
 
         private void EmployeeList_Load(object sender, EventArgs e)
         {
-            this.CenterToScreen();
             this.CargarEmpleados();
         }
 
@@ -221,6 +214,20 @@ namespace PresentationLayerWinform
             gridEmpleados.DataSource = dtEmpleado;
             gridEmpleados.Columns[0].Width = 170;
             gridEmpleados.Columns[1].Width = 110;
+        }
+
+        private void gridEmpleados_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string sOpcion = MessageBoxEditarEliminar.ShowBox();
+            if (sOpcion == "1")
+            {
+                EmployeeAddEdit frmAdd = new EmployeeAddEdit();
+                frmAdd.ShowDialog();
+            }
+            else if (sOpcion == "2")
+            {
+                MessageBox.Show("Futuramente se va a eliminar", "Eliminar", MessageBoxButtons.OK);
+            }
         }
     }
 }

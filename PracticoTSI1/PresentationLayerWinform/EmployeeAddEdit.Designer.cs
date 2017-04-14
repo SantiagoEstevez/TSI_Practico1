@@ -176,6 +176,7 @@
             this.Controls.Add(this.btnAgregar);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EmployeeAddEdit";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Nuevo empleado";
             this.Load += new System.EventHandler(this.EmployeeAddEdit_Load);
             this.ResumeLayout(false);

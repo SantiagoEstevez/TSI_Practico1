@@ -53,8 +53,10 @@
             this.gridEmpleados.RowHeadersVisible = false;
             this.gridEmpleados.RowTemplate.Height = 24;
             this.gridEmpleados.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.gridEmpleados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridEmpleados.Size = new System.Drawing.Size(643, 252);
             this.gridEmpleados.TabIndex = 2;
+            this.gridEmpleados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridEmpleados_CellClick);
             // 
             // btnSalir
             // 
@@ -70,12 +72,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(667, 309);
+            this.ClientSize = new System.Drawing.Size(675, 309);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.gridEmpleados);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EmployeeList";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lista de empleados";
             this.Load += new System.EventHandler(this.EmployeeList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridEmpleados)).EndInit();

@@ -88,9 +88,13 @@ namespace PresentationLayerWinform
             InitializeComponent();
         }
 
+        public EmployeeAddEdit(ServiceEmployees.Employee emp)
+        {
+            InitializeComponent();
+        }
+
         private void EmployeeAddEdit_Load(object sender, EventArgs e)
         {
-            this.CenterToScreen();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
