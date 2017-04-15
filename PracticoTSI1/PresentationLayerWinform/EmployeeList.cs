@@ -150,80 +150,87 @@ namespace PresentationLayerWinform
             DataColumn col;
             DataRow row;
 
-            //Id empleado
-            col = new DataColumn();
-            col.DataType = typeof(Int32);
-            col.ColumnName = "Id";
-            col.Caption = "Id";
-            col.ReadOnly = true;
-            dtEmpleado.Columns.Add(col);
-
-            //Nombre
-            col = new DataColumn();
-            col.DataType = typeof(string);
-            col.ColumnName = "Nombre";
-            col.Caption = "Nombre";
-            col.ReadOnly = true;
-            dtEmpleado.Columns.Add(col);
-
-            //Fecha contratado
-            col = new DataColumn();
-            col.DataType = typeof(string);
-            col.ColumnName = "Contratado";
-            col.Caption = "Contratado";
-            col.ReadOnly = true;
-            dtEmpleado.Columns.Add(col);
-
-            //Tipo empleado
-            col = new DataColumn();
-            col.DataType = typeof(string);
-            col.ColumnName = "TipoEmpleado";
-            col.Caption = "Tipo empleado";
-            col.ReadOnly = true;
-            dtEmpleado.Columns.Add(col);
-
-            //Salario
-            col = new DataColumn();
-            col.DataType = typeof(string);
-            col.ColumnName = "Salario";
-            col.Caption = "Salario";
-            col.ReadOnly = true;
-            dtEmpleado.Columns.Add(col);
-
-            //Cargo filas
-            ServiceEmployees.Employee[] lisEmpleados = Servicio.GetAllEmployees();
-            for (int i = 0; i < lisEmpleados.Length; i++)
+            try
             {
-                row = dtEmpleado.NewRow();
-                string sTipo = "";
-                string sHora = "";
-                double dPaga = 0;
+                //Id empleado
+                col = new DataColumn();
+                col.DataType = typeof(Int32);
+                col.ColumnName = "Id";
+                col.Caption = "Id";
+                col.ReadOnly = true;
+                dtEmpleado.Columns.Add(col);
 
-                if (lisEmpleados[i].GetType() == typeof(ServiceEmployees.PartTimeEmployee))
+                //Nombre
+                col = new DataColumn();
+                col.DataType = typeof(string);
+                col.ColumnName = "Nombre";
+                col.Caption = "Nombre";
+                col.ReadOnly = true;
+                dtEmpleado.Columns.Add(col);
+
+                //Fecha contratado
+                col = new DataColumn();
+                col.DataType = typeof(string);
+                col.ColumnName = "Contratado";
+                col.Caption = "Contratado";
+                col.ReadOnly = true;
+                dtEmpleado.Columns.Add(col);
+
+                //Tipo empleado
+                col = new DataColumn();
+                col.DataType = typeof(string);
+                col.ColumnName = "TipoEmpleado";
+                col.Caption = "Tipo empleado";
+                col.ReadOnly = true;
+                dtEmpleado.Columns.Add(col);
+
+                //Salario
+                col = new DataColumn();
+                col.DataType = typeof(string);
+                col.ColumnName = "Salario";
+                col.Caption = "Salario";
+                col.ReadOnly = true;
+                dtEmpleado.Columns.Add(col);
+
+                //Cargo filas
+                ServiceEmployees.Employee[] lisEmpleados = Servicio.GetAllEmployees();
+                for (int i = 0; i < lisEmpleados.Length; i++)
                 {
-                    sTipo = "Part time";
-                    sHora = " / Hora";
-                    dPaga = Convert.ToDouble(((ServiceEmployees.PartTimeEmployee)lisEmpleados[i]).HourlyRate);
-                }
-                else
-                {
-                    sTipo = "Full time";
-                    dPaga = ((ServiceEmployees.FullTimeEmployee)lisEmpleados[i]).Salary;
+                    row = dtEmpleado.NewRow();
+                    string sTipo = "";
+                    string sHora = "";
+                    double dPaga = 0;
+
+                    if (lisEmpleados[i].GetType() == typeof(ServiceEmployees.PartTimeEmployee))
+                    {
+                        sTipo = "Part time";
+                        sHora = " / Hora";
+                        dPaga = Convert.ToDouble(((ServiceEmployees.PartTimeEmployee)lisEmpleados[i]).HourlyRate);
+                    }
+                    else
+                    {
+                        sTipo = "Full time";
+                        dPaga = ((ServiceEmployees.FullTimeEmployee)lisEmpleados[i]).Salary;
+                    }
+
+                    row["Id"] = lisEmpleados[i].Id;
+                    row["Nombre"] = lisEmpleados[i].Name;
+                    row["Contratado"] = lisEmpleados[i].StartDate.ToString("d");
+                    row["TipoEmpleado"] = sTipo;
+                    row["Salario"] = dPaga + sHora;
+                    dtEmpleado.Rows.Add(row);
                 }
 
-                row["Id"] = lisEmpleados[i].Id;
-                row["Nombre"] = lisEmpleados[i].Name;
-                row["Contratado"] = lisEmpleados[i].StartDate.ToString("d");
-                row["TipoEmpleado"] = sTipo;
-                row["Salario"] = dPaga + sHora;
-                dtEmpleado.Rows.Add(row);
+                //Asigno data table a la grilla y adapto el tamaño de las columnas.
+                gridEmpleados.DataSource = dtEmpleado;
+                gridEmpleados.Columns[0].Width = 20;
+                gridEmpleados.Columns[1].Width = 170;
+                gridEmpleados.Columns[2].Width = 110;
             }
-
-            //Asigno data table a la grilla y adapto el tamaño de las columnas.
-            gridEmpleados.DataSource = dtEmpleado;
-            gridEmpleados.Columns[0].Width = 20;
-            gridEmpleados.Columns[1].Width = 170;
-            gridEmpleados.Columns[2].Width = 110;
+            catch
+            {
+                throw;
+            }
         }
 
         private void gridEmpleados_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -236,6 +243,7 @@ namespace PresentationLayerWinform
                 {
                     EmployeeAddEdit frmAdd = new EmployeeAddEdit(Int32.Parse(sId));
                     frmAdd.ShowDialog();
+                    this.CargarEmpleados();
                 }
                 else if (sOpcion == "2")
                 {

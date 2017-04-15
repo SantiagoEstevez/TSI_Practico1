@@ -82,6 +82,7 @@ namespace PresentationLayerWinform
     public partial class EmployeeAddEdit : Form
     {
         ServiceEmployees.ServiceEmployeesClient Servicio = new ServiceEmployees.ServiceEmployeesClient();
+        private Int32 EmployeeId = 0;
 
         public EmployeeAddEdit()
         {
@@ -91,7 +92,31 @@ namespace PresentationLayerWinform
         public EmployeeAddEdit(Int32 id)
         {
             InitializeComponent();
-            this.btnAgregar.Text = "Guardar";
+
+            try
+            {
+                this.btnAgregar.Text = "Guardar";
+                this.EmployeeId = id;
+
+                //Cargo la informacion del empleado.
+                ServiceEmployees.Employee emp = Servicio.GetEmployee(id);
+                this.txtNombre.Text = emp.Name;
+                this.tpContratado.Value = emp.StartDate;
+                if (emp.GetType() == typeof(ServiceEmployees.FullTimeEmployee))
+                {
+                    this.txtSalario.Text = ((ServiceEmployees.FullTimeEmployee)emp).Salary.ToString();
+                    this.chkFull.Checked = true;
+                }
+                else
+                {
+                    this.txtSalario.Text = ((ServiceEmployees.PartTimeEmployee)emp).HourlyRate.ToString();
+                    this.chkPart.Checked = true;
+                }
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         private void EmployeeAddEdit_Load(object sender, EventArgs e)
@@ -113,7 +138,16 @@ namespace PresentationLayerWinform
                     oEmpleado.Name = txtNombre.Text;
                     oEmpleado.StartDate = this.tpContratado.Value;
                     ((ServiceEmployees.FullTimeEmployee)oEmpleado).Salary = int.Parse(this.txtSalario.Text);
-                    Servicio.AddEmployee(oEmpleado);
+
+                    if (this.EmployeeId == 0)
+                    {
+                        Servicio.AddEmployee(oEmpleado);
+                    }
+                    else
+                    {
+                        oEmpleado.Id = EmployeeId;
+                        Servicio.UpdateEmployee(oEmpleado);
+                    }
                 }
                 else
                 {
@@ -121,7 +155,16 @@ namespace PresentationLayerWinform
                     oEmpleado.Name = txtNombre.Text;
                     oEmpleado.StartDate = this.tpContratado.Value;
                     ((ServiceEmployees.PartTimeEmployee)oEmpleado).HourlyRate = double.Parse(this.txtSalario.Text);
-                    Servicio.AddEmployee(oEmpleado);
+
+                    if (this.EmployeeId == 0)
+                    {
+                        Servicio.AddEmployee(oEmpleado);
+                    }
+                    else
+                    {
+                        oEmpleado.Id = EmployeeId;
+                        Servicio.UpdateEmployee(oEmpleado);
+                    }
                 }
 
                 this.Close();
