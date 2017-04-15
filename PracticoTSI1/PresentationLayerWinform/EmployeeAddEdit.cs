@@ -88,9 +88,10 @@ namespace PresentationLayerWinform
             InitializeComponent();
         }
 
-        public EmployeeAddEdit(ServiceEmployees.Employee emp)
+        public EmployeeAddEdit(Int32 id)
         {
             InitializeComponent();
+            this.btnAgregar.Text = "Guardar";
         }
 
         private void EmployeeAddEdit_Load(object sender, EventArgs e)

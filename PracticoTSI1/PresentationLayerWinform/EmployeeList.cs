@@ -150,9 +150,17 @@ namespace PresentationLayerWinform
             DataColumn col;
             DataRow row;
 
+            //Id empleado
+            col = new DataColumn();
+            col.DataType = typeof(Int32);
+            col.ColumnName = "Id";
+            col.Caption = "Id";
+            col.ReadOnly = true;
+            dtEmpleado.Columns.Add(col);
+
             //Nombre
             col = new DataColumn();
-            col.DataType = System.Type.GetType("System.String");
+            col.DataType = typeof(string);
             col.ColumnName = "Nombre";
             col.Caption = "Nombre";
             col.ReadOnly = true;
@@ -160,7 +168,7 @@ namespace PresentationLayerWinform
 
             //Fecha contratado
             col = new DataColumn();
-            col.DataType = System.Type.GetType("System.String");
+            col.DataType = typeof(string);
             col.ColumnName = "Contratado";
             col.Caption = "Contratado";
             col.ReadOnly = true;
@@ -168,7 +176,7 @@ namespace PresentationLayerWinform
 
             //Tipo empleado
             col = new DataColumn();
-            col.DataType = System.Type.GetType("System.String");
+            col.DataType = typeof(string);
             col.ColumnName = "TipoEmpleado";
             col.Caption = "Tipo empleado";
             col.ReadOnly = true;
@@ -176,7 +184,7 @@ namespace PresentationLayerWinform
 
             //Salario
             col = new DataColumn();
-            col.DataType = System.Type.GetType("System.String");
+            col.DataType = typeof(string);
             col.ColumnName = "Salario";
             col.Caption = "Salario";
             col.ReadOnly = true;
@@ -203,6 +211,7 @@ namespace PresentationLayerWinform
                     dPaga = ((ServiceEmployees.FullTimeEmployee)lisEmpleados[i]).Salary;
                 }
 
+                row["Id"] = lisEmpleados[i].Id;
                 row["Nombre"] = lisEmpleados[i].Name;
                 row["Contratado"] = lisEmpleados[i].StartDate.ToString("d");
                 row["TipoEmpleado"] = sTipo;
@@ -212,21 +221,31 @@ namespace PresentationLayerWinform
 
             //Asigno data table a la grilla y adapto el tamaño de las columnas.
             gridEmpleados.DataSource = dtEmpleado;
-            gridEmpleados.Columns[0].Width = 170;
-            gridEmpleados.Columns[1].Width = 110;
+            gridEmpleados.Columns[0].Width = 20;
+            gridEmpleados.Columns[1].Width = 170;
+            gridEmpleados.Columns[2].Width = 110;
         }
 
         private void gridEmpleados_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string sOpcion = MessageBoxEditarEliminar.ShowBox();
-            if (sOpcion == "1")
+            try
             {
-                EmployeeAddEdit frmAdd = new EmployeeAddEdit();
-                frmAdd.ShowDialog();
+                string sId = gridEmpleados.Rows[e.RowIndex].Cells[0].Value.ToString();
+                string sOpcion = MessageBoxEditarEliminar.ShowBox();
+                if (sOpcion == "1")
+                {
+                    EmployeeAddEdit frmAdd = new EmployeeAddEdit(Int32.Parse(sId));
+                    frmAdd.ShowDialog();
+                }
+                else if (sOpcion == "2")
+                {
+                    Servicio.DeleteEmployee(Int32.Parse(sId));
+                    this.CargarEmpleados();
+                }
             }
-            else if (sOpcion == "2")
+            catch
             {
-                MessageBox.Show("Futuramente se va a eliminar", "Eliminar", MessageBoxButtons.OK);
+                throw;
             }
         }
     }
