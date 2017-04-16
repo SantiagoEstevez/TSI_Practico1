@@ -2,6 +2,7 @@
 using Shared.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,8 +33,9 @@ namespace DataAccessLayer
         {
             using (var db = new EmployeesEntities())
             {
-                Shared.Entities.Employee oEmpleado = db.Employees.Find(emp.Id);
-                oEmpleado = emp;
+                db.Employees.Attach(emp);
+                var entry = db.Entry(emp);
+                entry.State = EntityState.Modified;
                 db.SaveChanges();
             }
         }
